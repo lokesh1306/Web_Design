@@ -1,10 +1,13 @@
+Our project is a travel agency website where people can book different types of travel packages offered by the agency, checkout and make payment directly from the website. This assignment includes the landing page for the website.
+
+Group members:
 NUID:2921968 - Lokesh Challagulla 
 NUID:2768738 - Venkata Sairam Mandapati 
 NUID:2658318 - Jagithyala Smrithi
 NUID:2769197 - Arthy Sekar
 NUID:2769193 - Balaji arul Selvan Sothiselvam
 
-
+Components used:
 Navbar: Navbar navigation links build on our .nav options with their own modifier class and require the use of toggler classes for proper responsive styling. 
 Navigation in navbars will also grow to occupy as much horizontal space as possible to keep your navbar contents securely aligned.
 Navbars require a wrapping .navbar with .navbar-expand{-sm|-md|-lg|-xl} for responsive collapsing and color scheme classes.
