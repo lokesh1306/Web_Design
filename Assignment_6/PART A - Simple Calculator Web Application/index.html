@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   <title>Registration Form</title>
+   <link rel="stylesheet" type="text/css" href="style.css">
+   <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+</head>
+
+<body>
+   <div class="container">
+      <h1>Register</h1>
+      <form id="registration_form">
+         <div>
+            <input type="text" id="form_fname" name="username" required="">
+            <span class="error_form" id="fname_error_message"></span>
+            <label>
+               Username
+            </label>
+         </div>
+
+         <div>
+            <input type="password" id="form_password" name="" required="">
+            <span class="error_form" id="password_error_message"></span>
+            <label>Password</label>
+         </div>
+
+         <div>
+            <input type="email" id="form_email" name="" required="">
+            <span class="error_form" id="email_error_message"></span>
+            <label>Email ID</label>
+         </div>
+
+
+         <input type="submit" id="sbmt" value="Register" name="">
+
+         <!-- <p id="wlcmvalue"></p> -->
+
+      </form>
+
+
+   </div>
+
+   </div>
+
+
+   <script type="text/javascript">
+      $(function () {
+
+         $("#fname_error_message").hide();
+         $("#sname_error_message").hide();
+         $("#email_error_message").hide();
+         $("#password_error_message").hide();
+         $("#retype_password_error_message").hide();
+
+         var error_fname = false;
+         var error_sname = false;
+         var error_email = false;
+         var error_password = false;
+         var error_retype_password = false;
+
+         $("#form_fname").focusout(function () {
+            check_fname();
+         });
+         $("#form_sname").focusout(function () {
+            check_sname();
+         });
+         $("#form_email").focusout(function () {
+            check_email();
+         });
+         $("#form_password").focusout(function () {
+            check_password();
+         });
+         $("#form_retype_password").focusout(function () {
+            check_retype_password();
+         });
+
+         function check_fname() {
+            var pattern = /^[a-zA-Z]*$/;
+            var fname = $("#form_fname").val();
+            if (pattern.test(fname) && fname !== '') {
+               $("#fname_error_message").hide();
+               $("#form_fname").css("border-bottom", "2px solid #34F458");
+            } else {
+               $("#fname_error_message").html("Should contain only characters");
+               $("#fname_error_message").show();
+               $("#form_fname").css("border-bottom", "2px solid #F90A0A");
+               error_fname = true;
+            }
+         }
+
+
+
+         function check_password() {
+            var password_length = $("#form_password").val().length;
+            if (password_length < 8) {
+               $("#password_error_message").html("Atleast 8 characters");
+               $("#password_error_message").show();
+               $("#form_password").css("border-bottom", "2px solid #F90A0A");
+               error_password = true;
+            } else {
+               $("#password_error_message").hide();
+               $("#form_password").css("border-bottom", "2px solid #34F458");
+            }
+         }
+
+
+
+         function check_email() {
+            var pattern = /^[a-zA-Z0-9._%+-]+@northeastern+\.edu$/;
+            var email = $("#form_email").val();
+            if (pattern.test(email) && email !== '') {
+               $("#email_error_message").hide();
+               $("#form_email").css("border-bottom", "2px solid #34F458");
+            } else {
+               $("#email_error_message").html("Enter a valid Northeastern email ID");
+               $("#email_error_message").show();
+               $("#form_email").css("border-bottom", "2px solid #F90A0A");
+               error_email = true;
+            }
+         }
+
+         $("#registration_form").submit(function () {
+            error_fname = false;
+
+            error_email = false;
+            error_password = false;
+
+
+            check_fname();
+
+            check_email();
+            check_password();
+
+            
+
+
+
+
+            if (error_fname === false && error_email === false && error_password === false) {
+               alert("Registration successfull");
+
+               var fname = $("#form_fname").val();
+               
+               window.sessionStorage.setItem("username", fname);
+
+             
+
+               var url = "calculator.html";
+               $(location).attr('href', url);
+               window.location.href = url;
+
+               return false;
+            }
+            else {
+               alert("Please fill the form correctly");
+            }
+
+         });
+      });
+
+
+
+   </script>
+</body>
+
+</html>
