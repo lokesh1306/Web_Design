@@ -7,6 +7,7 @@ function Square (props){
     return (
             <div style={squareStyle}>
              {props.title}
+             {props.content}
             </div>
     )
 }
@@ -37,7 +38,7 @@ function Card (props){
 
         return (
             <div style={cardStyle}>
-                <Square color={props.color} title={props.title}/>
+                <Square color={props.color} title={props.title}/> {props.content}
                 {/* <Label color={props.color}/> */}
             </div>
         );

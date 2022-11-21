@@ -11,8 +11,8 @@ function Contact() {
         <Navbars/>
         </div> 
          <div> 
-              <Card color={"white"} title="Please reach out of you have any queries!, This page consists of a nav, card and a form and footer"/><br></br>   
-        </div><br></br> 
+         <Card color={"grey"} title="Contact" content="This is the contact Page"/>
+         </div><br></br> 
 
         <form>
           <label for="fname">First Name</label><br></br>

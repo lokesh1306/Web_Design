@@ -37,7 +37,7 @@ function Home() {
 
         <div>
                 {/* this is About page  */}
-                <Card color={"grey"} title="This page consists about the navbar and various divs, a card component and footer" />
+                <Card color={"grey"} title="Home" content="This is the home Page"/>
             </div><Footer />
 </React.Fragment>
 )

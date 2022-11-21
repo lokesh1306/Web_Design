@@ -21,7 +21,7 @@ function Jobs() {
         </div>
            <br />
             <br />
-            <Card color={"grey"} title="This page consists of various job postings"/> 
+            <Card color={"grey"} title="Jobs" content="This is the jobs Page"/>
             <div>List of jobs <br></br> 
             {data.map((item) => {
                 return <Map id={item.id} key={item.id} name={item.name} />; })}    

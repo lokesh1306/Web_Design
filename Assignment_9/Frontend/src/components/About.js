@@ -60,7 +60,7 @@ function About() {
 </div>
   <div>
       {/* this is About page  */}
-      <Card color={"grey"} title="This page consists about the navbar and various divs, containg about section and has 3 cards and a button in each card and a card component and footer"/>  
+      <Card color={"grey"} title="About" content="This is the about Page"/>
   </div>
  <Footer/>
 </React.Fragment>
