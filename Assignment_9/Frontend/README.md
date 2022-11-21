@@ -2,7 +2,7 @@ This is a web applciation where the backend is written in NodeJS using MongoDB a
 The frontend is created using ReactJS and is connected to the backend via HTTP. 
 
 Steps to run the backend
-1) Open Assignment_8_Final in Terminal
+1) Open Assignment_8 in Terminal
 2) Type nodo app.js
  
 Steps to run the frontend
