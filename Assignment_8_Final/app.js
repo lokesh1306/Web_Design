@@ -5,8 +5,13 @@ const port=8080
 const bcrypt=require('bcrypt')
 const { request } = require('express')
 const User=require("./model/user")
+const jwt = require("jsonwebtoken");
+const JWT_SECRET =
+  "hvdvay6ert72839289()aiyg8t87qt72393293883uhefiuh78ttq3ifi78272jbkj?[]]pou89ywe";
 
 const app=express() //Exported the express in line 1 the express functioanlity is assignmed to a variable app.
+const cors = require("cors");
+app.use(cors());
 
 mongoose.connect(url,{useNewUrlParser:true})
 const con=mongoose.connection
@@ -100,10 +105,8 @@ app.post("/user/createUser",async function(req,res){
 */
 app.put('/user/edit', function(req, res) {
             let email = req.body.email;
-            let old_name = req.body.old_name;
-            let old_password = req.body.old_password;
-            let new_name = req.body.new_name;
-            let new_password = req.body.new_password;
+            let name = req.body.name;
+            let password = req.body.password;
             
             User.findOne({email: email} , (err,data) => {
                 if(err){
@@ -111,36 +114,24 @@ app.put('/user/edit', function(req, res) {
                 }else if(!data){
                     return res.json({"messgae":"Email ID not found in the database, enter a valid email ID"})
                 }
-                User.findOne({name: old_name} , (err,data) => {
-                    if(err){
-                        return res.json({"message":"Error on finding user"});
-                    }else if(!data){
-                        return res.json({"messgae":"Old name doesn't match with the name in the database"})
-                    }
                 
-                bcrypt.compare(old_password, data.password , function(err,result){
-                    if(err){
-                        return res.json({"message":"Error on bcrypt"});
-                    }
-                    else if(!result){
-                        return res.json({"message":"Old password doesn't match with the password in the database"});
-                    }
+                
                     var regexName = /^[a-zA-Z]+ [a-zA-Z]+$/
                     var regexPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/
-                    if(!new_name.trim().match(regexName)){
+                    if(!name.trim().match(regexName)){
                         res.status(400);
                         return res.json({"message":"Name input does not match"});
-                   } else if (!new_password.trim().match(regexPassword)){
+                   } else if (!password.trim().match(regexPassword)){
                         res.status(400);
                         return res.json({"message": "Please enter minimum eight characters, at least one lowercase and uppercase letter"});
                    } 
 
-                    bcrypt.hash(req.body.new_password, 12,function(err,new_hash){
+                    bcrypt.hash(req.body.password, 12,function(err,new_hash){
                         if(err){
                             return res.json({"message":"Failed on hashing password after changing it"});
                         }
                         User.findOneAndUpdate({email: email},
-                            {$set:{name: new_name, password: new_hash}},
+                            {$set:{name: name, password: new_hash}},
                             {new: true}, (err, doc) => {
                                 console.log(doc);
                                 if(err){
@@ -161,9 +152,7 @@ app.put('/user/edit', function(req, res) {
                 })
 
             })
-        })
             
-        });
         
         app.delete('/user/delete',function(req, res){
               let email = req.body.email;
@@ -203,6 +192,25 @@ app.put('/user/edit', function(req, res) {
                     }
                 });
             });
+            app.post("/login-user", async (req, res) => {
+                const { email, password } = req.body;
+              
+                const user = await User.findOne({ email });
+                if (!user) {
+                  return res.json({ error: "User Not found" });
+                }
+                if (await bcrypt.compare(password, user.password)) {
+                  const token = jwt.sign({ email: user.email }, JWT_SECRET);
+              
+                  if (res.status(201)) {
+                    return res.json({ status: "ok", data: token });
+                  } else {
+                    return res.json({ error: "error" });
+                  }
+                }
+                res.json({ status: "error", error: "InvAlid Password" });
+              });
+
 
 app.listen(port,function(){
 console.log("Server staterd, accessible on port 8080")
